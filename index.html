@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Cinematic Intro</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        background: radial-gradient(circle at center, #050505, #000);
+        overflow: hidden;
+        font-family: "Segoe UI", sans-serif;
+        perspective: 1200px;
+    }
+
+    /* Scene */
+    .scene {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        animation: cameraMove 12s ease-in-out infinite;
+    }
+
+    @keyframes cameraMove {
+        0%   { transform: rotateX(0deg) rotateY(0deg) translateZ(0); }
+        50%  { transform: rotateX(6deg) rotateY(-8deg) translateZ(120px); }
+        100% { transform: rotateX(0deg) rotateY(0deg) translateZ(0); }
+    }
+
+    /* 3D Text */
+    .title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-style: preserve-3d;
+        transform: translate(-50%, -50%) translateZ(200px);
+        font-size: 72px;
+        letter-spacing: 10px;
+        color: white;
+        text-shadow:
+            0 0 20px rgba(255,255,255,0.4),
+            0 0 60px rgba(255,255,255,0.2);
+        animation: titleReveal 4s ease forwards;
+    }
+
+    @keyframes titleReveal {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateZ(-400px);
+            filter: blur(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateZ(200px);
+            filter: blur(0);
+        }
+    }
+
+    /* Subtitle */
+    .subtitle {
+        position: absolute;
+        top: calc(50% + 90px);
+        left: 50%;
+        transform: translate(-50%, -50%) translateZ(160px);
+        font-size: 18px;
+        letter-spacing: 4px;
+        color: #aaa;
+        opacity: 0;
+        animation: fadeIn 3s ease forwards;
+        animation-delay: 4s;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    /* 3D Stars */
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        opacity: 0.6;
+        transform-style: preserve-3d;
+        animation: starMove linear infinite;
+    }
+
+    @keyframes starMove {
+        from {
+            transform: translateZ(-800px);
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        to {
+            transform: translateZ(600px);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="scene">
+    <div class="title">SUDHARSHAN</div>
+    <div class="subtitle">3D CINEMATIC EXPERIENCE</div>
+</div>
+
+<script>
+    // Create 3D stars
+    for (let i = 0; i < 300; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 100 + "vh";
+        star.style.animationDuration = (5 + Math.random() * 10) + "s";
+        star.style.animationDelay = Math.random() * 10 + "s";
+        document.body.appendChild(star);
+    }
+</script>
+
+</body>
+</html>
+
